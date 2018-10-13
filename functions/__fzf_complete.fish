@@ -119,10 +119,11 @@ end
 
 function __fzf_complete_opts_preview
     set -l file (status -f)
-    echo --with-nth=1 --preview-window=right:wrap --preview="fish\ '$file'\ __fzf_complete_preview\ '{1}'\ '{2..}'"
+    echo --preview-window=right:wrap --preview="fish\ '$file'\ __fzf_complete_preview\ '{1}'\ '{2..}'"
 end
 
-test "$argv[1]" = "__fzf_complete_preview"; and __fzf_complete_preview $argv[2..3]
+set -l joinedVar (string join ' ' $argv[2..3])
+test "$argv[1]" = "__fzf_complete_preview"; and __fzf_complete_preview $joinedVar
 
 function __fzf_complete_opts_0 -d 'basic single selection with tab accept'
     __fzf_complete_opts_common
